@@ -1,0 +1,121 @@
+{% extends 'todo/base.html' %}
+
+{% block title %}Task List{% endblock %}
+
+{% block content %}
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 14px;
+            margin: 10px 5px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .task-list {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        .task-list li {
+            background: #e9ecef;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-actions a {
+            margin-left: 8px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .btn-edit {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #218838;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #c82333;
+        }
+
+        .no-task {
+            color: #777;
+            font-style: italic;
+        }
+    </style>
+
+    <div class="container">
+        <h1>Task List</h1>
+        <a href="{% url 'add_task' %}" class="btn btn-primary">Add Task</a>
+        
+        <ul class="task-list">
+            {% for task in tasks %}
+                <li>
+                    <span>{{ task.task_name }}</span>
+                    <div class="task-actions">
+                        <a href="{% url 'edit_task' task.id %}" class="btn btn-edit">Edit</a> 
+                        <a href="{% url 'delete_task' task.id %}" class="btn btn-delete">Delete</a>
+                    </div>
+                </li>
+            {% empty %}
+                <li class="no-task">No tasks available.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
